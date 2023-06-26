@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+          <p>All Product Details:</p>
+
+          <table class="table">
+            <thead>
+              <tr>
+                
+                <th>Name</th>
+                <th>Address</th>
+                <th>Zipcode</th>
+                <th>Mobile</th>
+                <th>Date</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th rowspan="2">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for pro in product %}
+              <tr>
+                <td>{{pro.pname}}</td>
+                <td>{{pro.address}}</td>
+                <td>{{pro.zip_code}}</td>
+                <td>{{pro.mobile}}</td>
+                <td>{{pro.date}}</td>
+                <td>{{pro.message}}</td>
+                {% if pro.is_true == True %}
+                <td>
+                  <span class="material-symbols-outlined"> done </span>
+                </td>
+                {% elif pro.is_true == False %}
+
+                <td>
+                  <span class="material-symbols-outlined"> close </span>
+                </td>
+
+                {% endif %}
+                <td>
+                  
+                    <a href="{% url 'update_data' pro.id %}" class="btn btn-primary">Edit</a>
+                  </td>    
+                <td>  
+                    <form action="{% url 'delete_data' pro.id %}" method="POST"> 
+                      {% csrf_token %}
+                      <input type="submit" class="btn btn-danger" value="Del">
+                    </form>
+          
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        
+    </div>
+
+{% endblock content %}    

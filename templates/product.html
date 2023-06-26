@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+  
+
+    <div class="row">
+        <h1>Product List</h1>
+        {% for itm in get_page %}
+        <div class="col-md-3">
+            <div class="card pt-5">
+                <img src="/media/{{itm.image}}" style="width:200px; height: 200px;" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{itm.product_name}}</h5>
+                  <p class="card-text">{{itm.price}}</p>
+                  <p class="card-text"><small class="text-body-secondary">{{itm.description}}</small></p>
+                </div>
+              </div>  
+        </div>
+        {% endfor %}
+    </div>
+
+    <nav aria-label="...">
+      <ul class="pagination">
+
+        {% if get_page.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page=1">First</a>
+        </li>
+        <li class="page-item ">
+          <a class="page-link"  href="?page={{ get_page.previous_page_number }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for n in totalpagelist %}
+        <li class="page-item"><a class="page-link" href="?page={{n}}">{{n}}</a></li>
+        {% endfor %}
+
+        {% if get_page.has_next %}
+        
+        <li class="page-item">
+          <a class="page-link" href="?page={{get_page.next_page_number}}">Next</a>
+        </li>
+
+        <li class="page-item">
+          <a class="page-link" href="?page={{lastpage}}">Last</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+
+</div>
+
+{% endblock content %}
+
+
+
